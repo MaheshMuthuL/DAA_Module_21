@@ -1,66 +1,54 @@
-## EX 2D BACKTRACKING - GRAPH COLORING PROBLEM
+# EX 3D Pattern Matching
 ## DATE:
 ## AIM:
-To solve the Graph Coloring Problem using backtracking, assigning colors to the vertices of a graph such that no two adjacent vertices share the same color while minimizing the number of colors used.
+To write a python program to implement pattern matching on the given string using Brute Force algorithm.
 
 
 
 ## Algorithm
-1. Create a graph using an adjacency matrix for V vertices.
-2. Initialize a color array with 0 (unassigned) for all vertices.
-3. Use backtracking to assign colors (1 to m) to each vertex.
-4. Ensure no two adjacent vertices have the same color using is_safe().
-5. Print the color assignment if successful; else, print "Solution does not exist".
+1. Start checking each letter of s1 with the first letter of s
+2. If letters match, keep checking the next letters.
+3. If letters don't match, move one step forward in s1 and restart checking.
+4. If all letters of s2 match, return the starting position.
+5. If no match is found till the end, return 0.  
+
 ## Program:
 ```
 /*
-Program to implement Graph Coloring Problem using backtracking.
-Developed by: L.Mahesh Muthu
-Register Number: 212222040093
+Program to implement the Pattern Matching.
+Developed by: MOHAMED ROSHAN S
+Register Number: 212222040101
 */
 ```
-```python
-class Graph:
-    def __init__(self, vertices):
-        self.V = vertices
-        self.graph = [[0] * vertices for _ in range(vertices)]
-
-    def is_safe(self, v, color, c):
-        for i in range(self.V):
-            if self.graph[v][i] == 1 and color[i] == c:
-                return False
-        return True
-
-    def graph_coloring_util(self, m, color, v):
-        if v == self.V:
-            return True
-
-        for c in range(1, m + 1):
-            if self.is_safe(v, color, c):
-                color[v] = c 
-                
-                if self.graph_coloring_util(m, color, v + 1):
-                    return True
-                
-                color[v] = 0
-
-        return False
-
-    def graphColouring(self, m):
-       
-        color = [0] * self.V 
-
-        if not self.graph_coloring_util(m, color, 0):
-            print("Solution does not exist")
-            return None
-
-        print("Solution exist and Following are the assigned colours:")
-        print(" ".join(map(str, color)))
+```py
+def BF(s1,s2):
+    i = 0
+    j = 0
+    while(i < len(s1) and j < len(s2)):
+        if(s1[i] ==  s2[j]):
+            i += 1
+            j += 1
+        else:
+            i = i - j + 1
+            j = 0
+    if(j >= len(s2)):
+        return i - len(s2)
+    else:
+        return 0
+    #End here
+if __name__ == "__main__":
+    a1=input() 
+    a2=input() 
+    b=BF(a1,a2)
+    print(b)
 ```
 
 ## Output:
-![Screenshot 2025-04-26 111138](https://github.com/user-attachments/assets/4f71f11d-f92d-4e0a-8de1-f08c74b861b0)
-![Screenshot 2025-04-26 111153](https://github.com/user-attachments/assets/653f7091-885b-4aa0-8aeb-85526e2fd5fd)
-![Screenshot 2025-04-26 111201](https://github.com/user-attachments/assets/a8607e7d-bd02-44f5-aa6c-b9ae15cd48be)
+![image](https://github.com/user-attachments/assets/a2f4fb17-09f0-4aab-9106-2705993bcb0a)
+
+
+
+
+
 ## Result:
-The Graph Coloring program executed successfully, and the colors were assigned to the vertices such that no two adjacent vertices share the same color.
+The brute force substring search program executed successfully and returned the starting index of the match or 0 if no match was found.
